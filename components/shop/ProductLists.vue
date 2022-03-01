@@ -10,8 +10,9 @@
                 }}</NuxtLink>
                         </h5>
                         <p class="card-text product-price">{{formatPrice(item.retail_price)}} VNĐ </p>
-                       
-                        <a href="#" class="btn btn-primary cart-add">THÊM GIỎ HÀNG</a>
+                        <NuxtLink :to="'/product/' + item.id" style="text-decoration:none">
+                            <p class="btn btn-primary cart-add">Chi tiết</p>
+                        </NuxtLink>
                     </div>
                 </div>
             </div>

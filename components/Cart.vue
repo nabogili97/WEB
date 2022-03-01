@@ -9,6 +9,7 @@
             <div class="col-md-1"></div>
             <div class="col-md-7 ">
                 <h4 class="p-3">Chi tiết giỏ hàng</h4>
+                <b>Danh sacch test</b>{{itemCount}}
                 <table class="table product-list text-center">
                     <thead>
                         <tr>
@@ -71,7 +72,7 @@
                         14.000.000
                     </div>
                 </div>
-                <div class=" border-bottom mt-3 pb-3">
+                <!-- <div class=" border-bottom mt-3 pb-3">
                     <b>Mã giảm giá:</b>
                     <div>
                         <input class="form-control">
@@ -79,8 +80,8 @@
                     <div>
                         <button type="button" class="btn btn-danger mt-1">Áp dụng</button>
                     </div>
-                </div>
-                <div class="d-flex justify-content-between pb-5 mt-5">
+                </div> -->
+                <div class="d-flex justify-content-between pb-5 mt-5 border-top">
                     <div>
                         <b>Tổng tiền: </b>
                     </div>
@@ -88,15 +89,44 @@
                        <b> 14.000.000 VNĐ</b>
                     </div>
                 </div>
+                <div class="d-flex justify-content-center mb-3">
+                    <button  class="btn btn-primary" >ĐẶT HÀNG</button>
+                </div>
             </div>
             <div class="col-md-1"></div>
         </div>
     </div>
 </template>
 <script>
+import axios from 'axios';
 export default {
     setup() {
         
+    },
+    data() {
+        return {
+            itemCount: ''
+        }
+    },
+
+    mounted() {
+        this.$root.$on('changeInCart', (item) => {
+            this.itemCount = item;
+        })
+    },
+
+    methods: {
+        async getCartitem() {
+            const response = await axios.get('http://127.0.0.1:8000/api/checkout/get/items');
+
+            console.log(response)
+
+
+        }
+    },
+
+    created() {
+        this.getCartitem();
     },
 }
 </script>

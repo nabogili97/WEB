@@ -12,7 +12,10 @@
                         </h5>
                         <p class="card-text product-price">{{formatPrice(item.retail_price)}} VNĐ </p>
                        
-                        <a href="#" class="btn btn-primary cart-add">THÊM GIỎ HÀNG</a>
+                        <!-- <NuxtLink :to="'/product/' + item.id" style="text-decoration:none">
+                            <p class="btn btn-primary cart-add">Chi tiết</p>
+                        </NuxtLink> -->
+                        <button class="btn btn-primary cart-add" @click.prevent="addToCart(index)" >THÊM GIỎ HÀNG</button>
                     </div>
                 </div>
             </div>
@@ -35,8 +38,9 @@
 
 <script>
 import { fas } from '@fortawesome/free-solid-svg-icons'
+import axios from 'axios';
 export default {
-    props: ['products'],
+    props: ['products', 'productId'],
     computed: {
         fas () {
             return fas 
@@ -44,7 +48,12 @@ export default {
       },
     data() {
         return {
-            pagination: {}
+            pagination: {},
+            id:'',
+            proList:[],
+            cart:[],
+            price:0,
+            total:0
         }
     },
     // created() {
@@ -75,9 +84,24 @@ export default {
         //         };
         //     }).catch(err => console.log(err));
         // },
+
+
         formatPrice(value) {
             const val = (value/1).toFixed(0).replace('.', ',')
             return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+        },
+
+        async addToCart(index) {
+
+            // alert(index+1)
+            
+            const response = await axios.post('http://127.0.0.1:8000/api/cart',{
+                'product_id': (index+1)
+            });
+
+            this.$root.$emit("changeInCart", response.data.items);
+
+
         }
     }
 }

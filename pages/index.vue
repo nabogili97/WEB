@@ -7,11 +7,6 @@
         <h2>SẢN PHẢM MỚI</h2>
         <div class="title-border"></div>
     </div>
-    <product-list :products="products"/>
-    <div class="title-card text-center pt-5 pb-5">
-        <h2>SẢN PHẨM BÁN CHẠY</h2>
-        <div class="title-border"></div>
-    </div>
     <product-list :products="products"  />
     <div class="title-card text-center pt-5 pb-5">
         <h2>TIN TỨC MỚI NHẤT</h2>
@@ -40,7 +35,7 @@ export default {
   },
   async fetch() {
       this.products = await fetch("http://127.0.0.1:8000/api/productLists").then(res => res.json());
-      return this.products 
+      return this.products
     },
 
   //  mounted () {

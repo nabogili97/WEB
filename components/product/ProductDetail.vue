@@ -41,7 +41,7 @@
                             </select>
                     </span>
                 </div>
-                <div class="size mt-2 ml-3">
+                <!-- <div class="size mt-2 ml-3">
                     <b>Màu:</b>
                     <span class="box">
                          
@@ -49,7 +49,7 @@
                                 <option  v-for="(color, cokey) in item.color" :key="cokey" :value="color.color_value">{{color.color_value}}</option>
                             </select>
                     </span>
-                </div>
+                </div> -->
                 </div>
                 <div class="description mt-2">
                     <b>Mô tả:</b><br>
@@ -58,7 +58,7 @@
                 <div class="border-top mt-3">
                     <div class="ml-0 mt-3 mb-3 d-flex justify-content-lg-start">
                         <input class="form-control qty mr-3"  placeholder="0">
-                        <button type="button" class="btn btn-danger">THÊM GIỎ HÀNG</button>
+                        <button type="button" class="btn btn-danger" @click.prevent="addToCart">THÊM GIỎ HÀNG</button>
                     </div>
                 </div>
             </div>
@@ -167,10 +167,18 @@ export default {
       ).then(res => res.json())
     },
     methods: {
+
         formatPrice(value) {
             const val = (value/1).toFixed(0).replace('.', ',')
             return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+        },
+
+         addToCart() {
+
+            
+
         }
+
     }
 }
 </script>

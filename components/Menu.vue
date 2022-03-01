@@ -32,7 +32,11 @@
                         </div>
                         <div class="p-3 bd-highlight"><a href="/login">SIGN IN</a></div>
                        <!-- <div class="p-3 bd-highlight"><a href="/register">SIGN UP</a></div> -->
-                        <div class="p-3 bd-highlight"><a href="/cart">CART</a></div>
+                        <div class="p-3 bd-highlight"><a href="/cart">CART</a> 
+                            <span class="item-total">
+                                {{itemCount}}
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -41,7 +45,33 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
+    setup() {
+        
+    },
+    data() {
+        return {
+            itemCount: ''
+        }
+    },
+
+    mounted() {
+        this.$root.$on('changeInCart', (item) => {
+            this.itemCount = item;
+        })
+    },
+
+    methods: {
+        async getCartOnpageLoad() {
+            const response = await axios.post('http://127.0.0.1:8000/api/cart');
+            this.itemCount =response.data.items
+        }
+    },
+
+    created() {
+        this.getCartOnpageLoad();
+    },
 }
 </script>
 
@@ -125,6 +155,14 @@ svg {
 
 .search__input {
     border-radius: 20px;
+}
+
+.item-total {
+    background-color: red;
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 2px;
 }
 
 </style>

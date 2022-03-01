@@ -14,5 +14,19 @@ export default {
     setup() {
         
     },
+    data() {
+        return{
+            
+        }
+
+    },
+    methods: {
+        getCartItems() {
+
+        }
+    },
+    created() {
+        this.getCartItems()
+    },
 }
 </script>
